@@ -1,15 +1,3 @@
--- CREATE DATABASE tp_flight CHARACTER SET utf8mb4;
-
--- USE tp_flight;
-
--- CREATE TABLE etudiant (
---     id INT AUTO_INCREMENT PRIMARY KEY,
---     nom VARCHAR(100),
---     prenom VARCHAR(100),
---     email VARCHAR(100),
---     age INT
--- );
-
 CREATE DATABASE ef_financier CHARACTER SET utf8mb4;
 USE ef_financier;
 
@@ -27,26 +15,15 @@ CREATE TABLE fonds (
 CREATE TABLE TypePret (
     id_type_pret INT PRIMARY KEY AUTO_INCREMENT,
     libelle VARCHAR(100) NOT NULL,
-    duree INT
+    duree_min INT,    
+    duree_max INT, 
+    taux DECIMAL(5,2)
 );
-
-
-CREATE TABLE TauxInteret (
-    id_taux INT PRIMARY KEY AUTO_INCREMENT,
-    id_type_pret INT NOT NULL,
-    taux DECIMAL(5,2) NOT NULL, -- taux annuel
-    date_application DATE NOT NULL,
-    date_fin DATE,
-    simple BOOLEAN,
-    description VARCHAR(200),
-    FOREIGN KEY (id_type_pret) REFERENCES TypePret(id_type_pret)
-);
-
 
 
 -- 3. Table des clients
 CREATE TABLE client (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_client INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(100) NOT NULL,
     prenom VARCHAR(100) NOT NULL,
     email VARCHAR(150),
@@ -62,6 +39,7 @@ CREATE TABLE pret (
     montant DOUBLE NOT NULL,
     date_debut DATE NOT NULL,
     duree_mois INT NOT NULL, -- ex : 12, 24, 36 mois
-    FOREIGN KEY (id_client) REFERENCES client(id),
-    FOREIGN KEY (id_type_pret) REFERENCES type_pret(id)
+    FOREIGN KEY (id_client) REFERENCES client(id_client),
+    FOREIGN KEY (id_type_pret) REFERENCES TypePret(id_type_pret)
 );
+

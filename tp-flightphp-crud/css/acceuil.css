@@ -1,0 +1,62 @@
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button {
+  background: #5D0703;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+   background:white; 
+    color: #5D0703;
+    border-color: #5D0703;
+}
+
+/* Style du tableau */
+#table-etudiants {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#table-etudiants th, #table-etudiants td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+#table-etudiants th {
+  background-color: #5D0703;
+  color: white;
+}
+
+#table-etudiants tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* Boutons dans le tableau */
+#table-etudiants button {
+  width: auto;
+  padding: 5px 10px;
+  margin-right: 5px;
+}
+
+#table-etudiants button:last-child {
+  background: #f44336;
+}
+
+#table-etudiants button:last-child:hover {
+  background: #d32f2f;
+}

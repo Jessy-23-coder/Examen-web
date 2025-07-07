@@ -1,7 +1,7 @@
 Etape 1
     Prise en main du modèle https://drive.google.com/file/d/10DiQzC3EQOKNEj8U3Bkeg_gU9zvqKZYY/view?usp=share_link       ok
 
-    Préparation Github ou Gitlab public                                                                             
+    Préparation Github ou Gitlab public                                                                                 ok                                           
 
 
 Etape 2            
@@ -32,11 +32,8 @@ Etape 4
     Un système de simulation de prêt sera mis en place. Un prêt doit être validé pour être pris en compte
 
     On peut générer un PDF à donner au client pour un prêt
-    
+
     Un client peut avoir plusieurs prêts dans l'EF
 
 
 
-
-TI simple 
-TI composé 
