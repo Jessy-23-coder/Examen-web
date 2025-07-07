@@ -1,0 +1,164 @@
+EtablissementFinancier
+sql
+CREATE TABLE EtablissementFinancier (
+    id_ef INT PRIMARY KEY AUTO_INCREMENT,
+    nom_ef VARCHAR(100) NOT NULL,
+    adresse VARCHAR(200),
+    code_banque VARCHAR(20) UNIQUE,
+    date_creation DATE,
+    capital_social DECIMAL(15,2)
+);
+
+
+Fond
+sql
+CREATE TABLE Fond (
+    id_fond INT PRIMARY KEY AUTO_INCREMENT,
+    id_ef INT NOT NULL,
+    montant DECIMAL(15,2) NOT NULL,
+    date_ajout DATE NOT NULL,
+    source VARCHAR(100),
+    description TEXT,
+    FOREIGN KEY (id_ef) REFERENCES EtablissementFinancier(id_ef)
+);
+
+
+2. Tables pour les types de prêts et taux
+TypePret
+sql
+CREATE TABLE TypePret (
+    id_type_pret INT PRIMARY KEY AUTO_INCREMENT,
+    libelle VARCHAR(100) NOT NULL,
+    duree INT, -- en mois
+);
+
+
+TauxInteret
+sql
+CREATE TABLE TauxInteret (
+    id_taux INT PRIMARY KEY AUTO_INCREMENT,
+    id_type_pret INT NOT NULL,
+    taux DECIMAL(5,2) NOT NULL, -- taux annuel
+    date_application DATE NOT NULL,
+    date_fin DATE,
+    simple BOOLEAN,
+    description VARCHAR(200),
+    FOREIGN KEY (id_type_pret) REFERENCES TypePret(id_type_pret)
+);
+
+
+3. Tables clients
+Client
+sql
+CREATE TABLE Client (
+    id_client INT PRIMARY KEY AUTO_INCREMENT,
+    id_ef INT NOT NULL,
+    nom VARCHAR(50) NOT NULL,
+    prenom VARCHAR(50),
+    date_naissance DATE,
+    adresse VARCHAR(200),
+    telephone VARCHAR(20),
+    email VARCHAR(100),
+    profession VARCHAR(100),
+    revenu_mensuel DECIMAL(12,2),
+    date_inscription DATE NOT NULL,
+    FOREIGN KEY (id_ef) REFERENCES EtablissementFinancier(id_ef)
+);
+
+
+CompteBancaire
+sql
+CREATE TABLE CompteBancaire (
+    id_compte INT PRIMARY KEY AUTO_INCREMENT,
+    id_client INT NOT NULL,
+    numero_compte VARCHAR(20) UNIQUE NOT NULL,
+    type_compte ENUM('COURANT', 'EPARGNE', 'PROFESSIONNEL') NOT NULL,
+    solde DECIMAL(15,2) DEFAULT 0,
+    date_ouverture DATE NOT NULL,
+    statut ENUM('ACTIF', 'BLOQUE', 'FERME') DEFAULT 'ACTIF',
+    FOREIGN KEY (id_client) REFERENCES Client(id_client)
+);
+
+
+4. Tables pour la gestion des prêts
+Pret
+sql
+
+CREATE TABLE Pret (
+    id_pret INT PRIMARY KEY AUTO_INCREMENT,
+    id_client INT NOT NULL,
+    id_type_pret INT NOT NULL,
+    id_taux INT NOT NULL,
+    id_compte_debit INT, -- compte pour versement du prêt
+    montant DECIMAL(15,2) NOT NULL,
+    date_debut DATE NOT NULL,
+    date_fin DATE NOT NULL,
+    duree_mois INT NOT NULL,
+    statut ENUM('DEMANDE', 'APPROUVE', 'REJETE', 'EN_COURS', 'REMBOURSE', 'DEFAUT') NOT NULL,
+    motif_rejet TEXT,
+    date_approbation DATE,
+    montant_mensuel DECIMAL(12,2),
+    FOREIGN KEY (id_client) REFERENCES Client(id_client),
+    FOREIGN KEY (id_type_pret) REFERENCES TypePret(id_type_pret),
+    FOREIGN KEY (id_taux) REFERENCES TauxInteret(id_taux),
+    FOREIGN KEY (id_compte_debit) REFERENCES CompteBancaire(id_compte)
+);
+
+
+Remboursement
+sql
+CREATE TABLE Remboursement (
+    id_remboursement INT PRIMARY KEY AUTO_INCREMENT,
+    id_pret INT NOT NULL,
+    numero_echeance INT NOT NULL,
+    date_echeance DATE NOT NULL,
+    montant_du DECIMAL(12,2) NOT NULL,
+    montant_paye DECIMAL(12,2),
+    date_paiement DATE,
+    statut ENUM('A_PAYER', 'PAYE', 'RETARD', 'DEFAUT') DEFAULT 'A_PAYER',
+    penalite_retard DECIMAL(10,2) DEFAULT 0,
+    FOREIGN KEY (id_pret) REFERENCES Pret(id_pret)
+);
+
+
+Garantie
+sql
+CREATE TABLE Garantie (
+    id_garantie INT PRIMARY KEY AUTO_INCREMENT,
+    id_pret INT NOT NULL,
+    type_garantie ENUM('IMMOBILIERE', 'MOBILIERE', 'PERSONNELLE', 'AUTRE') NOT NULL,
+    description TEXT,
+    valeur_estimee DECIMAL(12,2),
+    date_evaluation DATE,
+    FOREIGN KEY (id_pret) REFERENCES Pret(id_pret)
+);
+
+
+5. Tables pour le suivi des opérations
+OperationBancaire
+sql
+CREATE TABLE OperationBancaire (
+    id_operation INT PRIMARY KEY AUTO_INCREMENT,
+    id_compte INT NOT NULL,
+    type_operation ENUM('VERSEMENT', 'RETRAIT', 'VIREMENT', 'PRET', 'REMBOURSEMENT', 'FRAIS') NOT NULL,
+    montant DECIMAL(12,2) NOT NULL,
+    date_operation DATETIME NOT NULL,
+    description VARCHAR(200),
+    id_pret INT, -- pour les opérations liées à un prêt
+    FOREIGN KEY (id_compte) REFERENCES CompteBancaire(id_compte),
+    FOREIGN KEY (id_pret) REFERENCES Pret(id_pret)
+);
+
+
+Audit
+sql
+CREATE TABLE Audit (
+    id_audit INT PRIMARY KEY AUTO_INCREMENT,
+    id_utilisateur INT,
+    type_action ENUM('CREATION', 'MODIFICATION', 'SUPPRESSION', 'VALIDATION') NOT NULL,
+    table_concernee VARCHAR(50) NOT NULL,
+    id_enregistrement INT NOT NULL,
+    date_heure DATETIME NOT NULL,
+    ancienne_valeur TEXT,
+    nouvelle_valeur TEXT
+);
