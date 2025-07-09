@@ -1,0 +1,22 @@
+fonctionalité autom
+    anulation : tsy miova ny prix de mitombo ny place dispo
+    fonction date : izay billet tsy lany de miakatra 2eme prix
+    reservation tsy voaloha : miakatra fona ny prix 
+
+coté admin
+    creud vol
+        lister            ok
+        ajouter           ok
+        modifier
+        suprimer          ok
+        classement        ok
+
+    reservation
+        checker les reservations        ok
+
+
+coté client
+    liste vol             ok
+    reservation aller     ok
+    anuulation            ok
+    reservation reotur 

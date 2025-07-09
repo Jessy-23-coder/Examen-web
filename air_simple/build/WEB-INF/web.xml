@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" 
+version="2.4">
+<display-name>Application WEB gestion de vol </display-name> 
+
+<listener>
+    <listener-class>controller.PrixInitializer</listener-class>
+</listener>
+ 
+<!-- vol -->
+    <servlet>
+        <servlet-name>VolController</servlet-name>
+        <servlet-class>controller.VolController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>      
+        <servlet-name>VolController</servlet-name>
+        <url-pattern>/vols</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>VolController</servlet-name>
+        <url-pattern>/ajout_vol</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>VolController</servlet-name>
+        <url-pattern>/insert_vol</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>VolController</servlet-name>
+        <url-pattern>/ModifierVol</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>VolController</servlet-name>
+        <url-pattern>/update_vol</url-pattern>
+    </servlet-mapping>
+
+    
+
+    <servlet-mapping>
+        <servlet-name>VolController</servlet-name>
+        <url-pattern>/SupprimerVol</url-pattern>
+    </servlet-mapping>
+    
+
+    <servlet-mapping>
+        <servlet-name>VolController</servlet-name>
+        <url-pattern>/GestionVols</url-pattern>
+    </servlet-mapping>
+   
+
+    <servlet-mapping>
+        <servlet-name>VolController</servlet-name>
+        <url-pattern>/liset_reservation</url-pattern>
+    </servlet-mapping>
+
+     <servlet-mapping>
+        <servlet-name>VolController</servlet-name>
+        <url-pattern>/recherche_resa</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>VolController</servlet-name>
+        <url-pattern>/class</url-pattern>
+    </servlet-mapping>
+    
+
+    <servlet-mapping>
+        <servlet-name>VolController</servlet-name>
+        <url-pattern>/UpdateClassesVol</url-pattern>
+    </servlet-mapping>
+    
+
+
+<!-- user -->
+    <servlet>
+        <servlet-name>UserController</servlet-name>
+        <servlet-class>controller.UserController</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>      
+        <servlet-name>UserController</servlet-name>
+        <url-pattern>/client</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>      
+        <servlet-name>UserController</servlet-name>
+        <url-pattern>/ReserverVol</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>      
+        <servlet-name>UserController</servlet-name>
+        <url-pattern>/CreerReservation</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>      
+        <servlet-name>UserController</servlet-name>
+        <url-pattern>/reserver</url-pattern>
+    </servlet-mapping>
+    
+     <servlet-mapping>      
+        <servlet-name>UserController</servlet-name>
+        <url-pattern>/getreservation</url-pattern>
+    </servlet-mapping>
+   
+    <servlet-mapping>      
+        <servlet-name>UserController</servlet-name>
+        <url-pattern>/annulerReserverVol</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>      
+        <servlet-name>UserController</servlet-name>
+        <url-pattern>/payerReservation</url-pattern>
+    </servlet-mapping>
+
+
+     <servlet-mapping>      
+        <servlet-name>UserController</servlet-name>
+        <url-pattern>/liste_reservation_admin</url-pattern>
+    </servlet-mapping>
+    
+
+
+<!-- user -->
+    <servlet>
+        <servlet-name>LoginController</servlet-name>
+        <servlet-class>controller.LoginController</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>      
+        <servlet-name>LoginController</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+</web-app>
+
